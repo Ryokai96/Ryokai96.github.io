@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 4.2.0" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>关于数组名和对数组名取地址 - Ryokai 的博客</title>
+
+
+    <meta name="description" content="关于数组名和对数组名取地址的示例以及解释">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于数组名和对数组名取地址">
+<meta property="og:url" content="https://blog.ryokai.xyz/%E5%85%B3%E4%BA%8E%E6%95%B0%E7%BB%84%E5%90%8D%E5%92%8C%E5%AF%B9%E6%95%B0%E7%BB%84%E5%90%8D%E5%8F%96%E5%9C%B0%E5%9D%80/index.html">
+<meta property="og:site_name" content="Ryokai 的博客">
+<meta property="og:description" content="关于数组名和对数组名取地址的示例以及解释">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.ryokai.xyz/images/og_image.png">
+<meta property="article:published_time" content="2017-05-06T09:41:39.000Z">
+<meta property="article:modified_time" content="2017-05-06T09:41:39.000Z">
+<meta property="article:author" content="Ryokai">
+<meta property="article:tag" content="C语言">
+<meta property="article:tag" content=" 数组">
+<meta property="article:tag" content=" 数组名">
+<meta property="article:tag" content=" 对数组名取地址">
+<meta property="article:tag" content=" 指针">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.ryokai.xyz/images/og_image.png">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.lug.ustc.edu.cn/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+    
+    
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-2-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="关于数组名和对数组名取地址" height="28" width="98">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">首页</a>
+                
+                <a class="navbar-item"
+                href="/archives">归档</a>
+                
+                <a class="navbar-item"
+                href="/categories">分类</a>
+                
+                <a class="navbar-item"
+                href="/tags">标签</a>
+                
+                <a class="navbar-item"
+                href="/about">关于</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-8-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-content article ">
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                关于数组名和对数组名取地址
+            
+        </h1>
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <i class="far fa-calendar-alt has-text-grey"></i>&nbsp;
+                <time class="level-item has-text-grey" datetime="2017-05-06T09:41:39.000Z">
+                    2017-05-06
+                </time>
+                
+                
+                <div class="level-item">
+                    <i class="far fa-folder-open has-text-grey"></i>&nbsp;
+                <a class="has-link-grey -link" href="/categories/C%E8%AF%AD%E8%A8%80/">C语言</a>
+                </div>
+                
+                
+                <i class="far fa-clock has-text-grey">&nbsp;</i>
+                <span class="level-item has-text-grey">
+                    
+                    
+                    3 分钟 读完 (大约 442 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <div class="content">
+            <p>以下是基于32位系统的测试：</p>
+<ul>
+<li>程序一：</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a[<span class="number">3</span>] = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;;</span><br><span class="line">	<span class="keyword">int</span> *p1 = (<span class="keyword">int</span> *)(&amp;a+<span class="number">1</span>);</span><br><span class="line">	<span class="keyword">int</span> *p2 = (<span class="keyword">int</span> *)(a+<span class="number">1</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%x, %x"</span>, p1[<span class="number">-1</span>], *p2);	<span class="comment">//输出为3, 2</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>程序二</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a[<span class="number">3</span>] = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%p\n%p\n"</span>, a, &amp;a);	<span class="comment">//这里a和&amp;a输出一样为0012FF58</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n%d\n"</span>, <span class="keyword">sizeof</span>(a), <span class="keyword">sizeof</span>(&amp;a));	<span class="comment">//sizeof(a)输出为12，sizeof(&amp;a)输出为4</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%p\n%p"</span>, &amp;a+<span class="number">1</span>, a+<span class="number">1</span>);	<span class="comment">//注意&amp;优先级高于+，&amp;a+1输出0012FF64，a+1输出为0012FF5C</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>程序二中：a和&amp;a打印出来的都是数组a的首地址。</p>
+<ul>
+<li>数组名a虽然能够单独拿出来代表一个地址，但是和指针还是有区别的，数组名是符号地址常量，在编译时求值并存在编译器的符号表里面，其值就是个内存地址，程序并没有给其分配空间，这与指针不同，sizeof(a)得到的是整个数组的大小12。所以a与a+0有区别，a+0与&amp;a[0]等价。</li>
+<li>关于&amp;a，注意这里的a是一个指针（a加了&amp;后就自动变成了指针，这点很有趣），指向整个数组，其值是数组的首地址，&amp;a就是指针a取地址，所以sizeof(&amp;a)就是一个指针所占内存空间的大小（可以把int a[3]改为char a[3]试试），而&amp;a+1的偏移量是整个数组的大小，所以，在程序一中p1[-1]输出的不是1而是3。</li>
+<li>关于&amp;a是否非法，本来对常量取地址是非法的，但是标准组织没有规定对数组名取地址是非法还是合法，所以因编译器而异，在VS中是合法的。</li>
+</ul>
+
+        </div>
+
+        
+        <br>
+        
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Ryokai
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接： </strong>
+    <a href="/%E5%85%B3%E4%BA%8E%E6%95%B0%E7%BB%84%E5%90%8D%E5%92%8C%E5%AF%B9%E6%95%B0%E7%BB%84%E5%90%8D%E5%8F%96%E5%9C%B0%E5%9D%80/" target="_blank" title="关于数组名和对数组名取地址">https://blog.ryokai.xyz/关于数组名和对数组名取地址/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明：  </strong>
+    本博客所有文章除特别声明外，均采用 <i class="fab fa-creative-commons"></i>&nbsp;<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" title="Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)">BY-NC-SA 4.0</a>
+     许可协议。转载请注明出处！
+  </li>
+</ul>
+        
+
+        
+        <hr style="height:1px;margin:1rem 0"/>
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <!-- <span class="is-size-6 has-text-grey has-mr-7">#</span> -->
+                    <i class="fas fa-tags has-text-grey"></i>&nbsp;
+                    <a class="has-link-grey -link" href="/tags/C/" rel="tag">C</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        
+<div class="addthis_inline_share_toolbox"></div>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5e12f1868c478775"></script>
+
+        
+    </div>
+</div>
+
+
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/Java%E5%8F%8C%E7%BC%93%E5%86%B2%E6%8A%80%E6%9C%AF%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">Java双缓冲技术的简单使用</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/%E5%9F%BA%E4%BA%8EHexo%E5%92%8CGithub%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/">
+                <span class="level-item">基于Hexo和Github搭建博客</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNTQ5Mi8xMjAyOA==">
+    <script type="text/javascript">
+        (function(d, s) {
+            var j, e = d.getElementsByTagName(s)[0];
+
+            if (typeof LivereTower === 'function') { return; }
+
+            j = d.createElement(s);
+            j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+            j.async = true;
+
+            e.parentNode.insertBefore(j, e);
+        })(document, 'script');
+    </script>
+    <noscript> Please activate JavaScript for write a comment in LiveRe</noscript>
+</div>
+
+    </div>
+</div>
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-4-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="is-rounded" src="https://cdn.jsdelivr.net/gh/Ryokai96/image-hosting/profile/20200106134254.png" alt="Ryokai">
+                    </figure>
+                    
+                    <p class="is-size-4 is-block">
+                        Ryokai
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Serendipity
+                    </p>
+                    
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <a href="/archives">
+                        <p class="title has-text-weight-normal">
+                            7
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <a href="/categories">
+                        <p class="title has-text-weight-normal">
+                            4
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <a href="/tags">
+                        <p class="title has-text-weight-normal">
+                            5
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/Ryokai96" target="_blank" rel="noopener">
+                <i class="fab fa-github"></i>&nbsp;&nbsp;&nbsp;关注我
+            </a>
+        </div>
+        
+        
+        
+    </div>
+</div>
+    
+        
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+        </div>
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="关于数组名和对数组名取地址" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 Ryokai&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Attribution-NonCommercial-ShareAlike 4.0 International" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">
+                        
+                            
+                        <i class="fab fa-creative-commons"></i>&nbsp;
+                        <i class="fab fa-creative-commons-by"></i>&nbsp;
+                        <i class="fab fa-creative-commons-nc"></i>&nbsp;
+                        <i class="fab fa-creative-commons-sa"></i>&nbsp;
+                        <!-- <img src="fab fa-creative-commons,fab fa-creative-commons-by,fab fa-creative-commons-nc,fab fa-creative-commons-sa" alt="Creative Commons"> -->
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+<script>
+var IcarusThemeSettings = {
+    site: {
+        url: 'https://blog.ryokai.xyz',
+        external_link: {"enable":true,"exclude":[]}
+    },
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+
+
+<script src="/js/animation.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="/js/gallery.js" defer></script>
+
+
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

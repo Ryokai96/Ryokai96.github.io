@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 4.2.0" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>基于Hexo和Github搭建博客 - Ryokai 的博客</title>
+
+
+    <meta name="description" content="Hexo+GitPages搭建独立博客教程">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于Hexo和Github搭建博客">
+<meta property="og:url" content="https://blog.ryokai.xyz/%E5%9F%BA%E4%BA%8EHexo%E5%92%8CGithub%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/index.html">
+<meta property="og:site_name" content="Ryokai 的博客">
+<meta property="og:description" content="Hexo+GitPages搭建独立博客教程">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Ryokai96/image-hosting/daily/20200106134525.png">
+<meta property="article:published_time" content="2017-05-06T01:26:52.000Z">
+<meta property="article:modified_time" content="2020-01-04T06:35:14.000Z">
+<meta property="article:author" content="Ryokai">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content=" Github">
+<meta property="article:tag" content=" Git">
+<meta property="article:tag" content=" 搭建博客">
+<meta property="article:tag" content=" 独立博客">
+<meta property="article:tag" content=" 静态博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/Ryokai96/image-hosting/daily/20200106134525.png">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.lug.ustc.edu.cn/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+    
+    
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-2-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="基于Hexo和Github搭建博客" height="28" width="98">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">首页</a>
+                
+                <a class="navbar-item"
+                href="/archives">归档</a>
+                
+                <a class="navbar-item"
+                href="/categories">分类</a>
+                
+                <a class="navbar-item"
+                href="/tags">标签</a>
+                
+                <a class="navbar-item"
+                href="/about">关于</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-8-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="https://cdn.jsdelivr.net/gh/Ryokai96/image-hosting/daily/20200106134525.png" alt="基于Hexo和Github搭建博客">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                基于Hexo和Github搭建博客
+            
+        </h1>
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <i class="far fa-calendar-alt has-text-grey"></i>&nbsp;
+                <time class="level-item has-text-grey" datetime="2017-05-06T01:26:52.000Z">
+                    2017-05-06
+                </time>
+                
+                <i class="far fa-calendar-check has-text-grey"></i>&nbsp;
+                <time class="level-item has-text-grey is-hidden-mobile" datetime="2020-01-04T06:35:14.000Z">
+                    2020-01-04
+                </time>
+                
+                
+                <div class="level-item">
+                    <i class="far fa-folder-open has-text-grey"></i>&nbsp;
+                <a class="has-link-grey -link" href="/categories/Hexo/">Hexo</a>
+                </div>
+                
+                
+                <i class="far fa-clock has-text-grey">&nbsp;</i>
+                <span class="level-item has-text-grey">
+                    
+                    
+                    9 分钟 读完 (大约 1356 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <div class="content">
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>这是一篇使用GitHub Pages和Hexo搭建独立博客的总结</p>
+<p>我是去年十月份左右接触的git，直到前不久，git对我来说都只是同步个人代码的工具(对git的版本控制、分支都不是很理解)，这次借着搭建博客的机会稍稍理解了一点git的分支是怎么回事</p>
+<p>写博客是一个好习惯，我从去年开始会写一些博客，之后有时间会陆续搬过这里来(其实也就那么几篇- -!)</p>
+<a id="more"></a>
+
+<p>在看之前，应该先了解一下：</p>
+<ul>
+<li><a href="http://www.jianshu.com/p/242ca1409b00">GitHub</a></li>
+<li><a href="http://www.jianshu.com/p/c6f566021ee0">GitHub Pages</a></li>
+<li><a href="https://hexo.io/zh-cn/">Hexo</a></li>
+<li><a href="http://www.jianshu.com/p/q81RER/">Markdown</a></li>
+</ul>
+<h2 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h2><h3 id="创建对应仓库"><a href="#创建对应仓库" class="headerlink" title="创建对应仓库"></a>创建对应仓库</h3><ol>
+<li>安装Git，略</li>
+<li>注册GitHub，略</li>
+<li>配置Git，略</li>
+<li>与GitHub建立联系，略</li>
+<li>以上4步相关资料：<a href="http://www.open-open.com/lib/view/open1423810370232.html">Git和Github简单配置</a></li>
+<li>在GitHub上创建新的仓库，命名为 username.github.io (其中username为github的用户名)，例如 Ryokai96.github.io</li>
+</ol>
+<h3 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a>安装Hexo</h3><ol>
+<li><p>安装Hexo需要首先安装Node.js，到官网下载安装(最好安装LTS版本)：<a href="https://nodejs.org/en/">Node.js官网</a></p>
+</li>
+<li><p>新建本地文件夹blog</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> mkdir blog</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> blog</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>全局安装hexo-cli，blog文件夹内安装hexo</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> npm install -g hexo-cli</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> npm install hexo</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+</li>
+</ol>
+<h2 id="搭建Hexo博客"><a href="#搭建Hexo博客" class="headerlink" title="搭建Hexo博客"></a>搭建Hexo博客</h2><ol>
+<li><p>创建并初始化Hexo目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> hexo init Hexo</span></span><br></pre></td></tr></table></figure>
+
+<p>完成后，当前目录下会多出一个Hexo目录</p>
+</li>
+<li><p>在Hexo目录中安装需要的插件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> Hexo</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> hexo deploy git插件</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> npm install hexo-deployer-git --save</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>测试</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 新建hellohexo.md文章</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo new hellohexo.md</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 渲染成静态页面</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo generate</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 启动本地hexo服务器</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo server</span></span><br></pre></td></tr></table></figure>
+
+<p>上面两条也可简写为</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> hexo g</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo s</span></span><br></pre></td></tr></table></figure>
+
+<p>然后在浏览器中输入localhost:4000即可进行预览</p>
+</li>
+<li><p>使用GitHub Pages搭建一个Hexo博客</p>
+<p>编辑Hexo目录下的_config.yml文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> vim _config.yml</span></span><br></pre></td></tr></table></figure>
+
+<p>将下面这段进行修改</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/deployment.html</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span></span><br></pre></td></tr></table></figure>
+
+<p>修改为</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Deployment</span></span><br><span class="line"><span class="comment">## Docs: https://hexo.io/docs/deployment.html</span></span><br><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repository:</span> <span class="string">git@github.com:Ryokai96/Ryokai96.github.io</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">master</span></span><br></pre></td></tr></table></figure>
+
+<p>注意 : 后面有一个空格，如 type: git</p>
+<p>repository后的url使用ssh形式，注意最后的.git要去掉</p>
+</li>
+<li><p>Hexo首页默认显示最新的一篇文章，可以在文章中使用&lt;!--more--&gt;来分割预览的文章和更多详情，或者使用hexo-excerpt插件来自动分隔（不推荐）。若要使用hexo-exerpt，首先在Hexo目录下安装插件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> hexo 自动截断插件</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> npm install hexo-excerpt --save</span></span><br></pre></td></tr></table></figure>
+
+<p>然后编辑Hexo目录下的_config.yml文件，添加以下配置：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">excerpt:</span></span><br><span class="line">  <span class="attr">depth:</span> <span class="number">2</span></span><br><span class="line">  <span class="attr">excerpt_excludes:</span> <span class="string">[]</span></span><br><span class="line">  <span class="attr">more_excludes:</span> <span class="string">[]</span></span><br><span class="line">  <span class="attr">hideWholePostExcerpts:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>完成部署</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> hexo generate</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo deploy</span></span><br></pre></td></tr></table></figure>
+
+<p>这两条也可简写为</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> hexo g</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo d</span></span><br></pre></td></tr></table></figure>
+
+<p>之后，在浏览器中键入 Ryokai96.github.io 即可访问博客</p>
+</li>
+</ol>
+<h2 id="Hexo的同步"><a href="#Hexo的同步" class="headerlink" title="Hexo的同步"></a>Hexo的同步</h2><p>使用Hexo搭建博客的同学可能会遇到这个问题：如果更换了设备，如何对Hexo博客进行管理？</p>
+<p>github或者gitee都有免费的私有仓库，使用私有仓库同步hexo代码，即可多设备同步hexo配置。</p>
+<ol>
+<li><p>在github或gitee新建一个仓库，名字随便，比如blogcode</p>
+</li>
+<li><p>在blog目录下初始化git仓库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git init</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>修改.git文件夹下的config文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> .git</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> vim config</span></span><br></pre></td></tr></table></figure>
+
+<p>修改config文件，添加以下配置，指定远程仓库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[remote "origin"]</span><br><span class="line">        url = git@github.com:Ryokai96/blogcode.git</span><br><span class="line">        fetch = +refs/heads/*:refs/remotes/origin/*</span><br><span class="line">[branch "master"]</span><br><span class="line">        remote = origin</span><br><span class="line">        merge = refs/heads/master</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果在新建远程仓库的时候生成了README文件，可以先git pull一下</p>
+</li>
+<li><p>推送</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> git add .</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git commit -m <span class="string">"hexo init"</span></span></span><br><span class="line"><span class="meta">$</span><span class="bash"> git push origin master</span></span><br></pre></td></tr></table></figure>
+
+<p>注意：如果有包含的目录是其他的git仓库，比如git clone方式安装的next主题，在themes/next目录下有.git目录，是无法同步next目录的，这里也不能将其作为子仓库，解决方式有两种，一种是直接删除next目录下的.git目录，另外一种是将next目录下的.git目录以及.git目录中的HEAD文件改名，比如改成.git_backup和HEAD_backup。使用第二种改名的方式可以在当该git仓库有更新时将名字改回来，用git pull更新，这种方式是否有弊端，我还不清楚。</p>
+</li>
+<li><p>之后要更新博客，进入Hexo文件夹，hexo g &amp; hexo d，要同步源文件，就在blog根目录提交修改</p>
+</li>
+<li><p>更换设备后或重装系统后，想管理博客，通过如下步骤：</p>
+<ol>
+<li><p>git clone <a href="mailto:git@github.com">git@github.com</a>:Ryokai96/blogcode.git</p>
+</li>
+<li><p>在克隆过来的本地仓库ryoukai中执行以下指令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> npm install</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> Hexo</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> npm install</span></span><br></pre></td></tr></table></figure>
+
+<p>然后就可以像原来一样管理博客了</p>
+</li>
+</ol>
+</li>
+</ol>
+<h2 id="Hexo其他配置"><a href="#Hexo其他配置" class="headerlink" title="Hexo其他配置"></a>Hexo其他配置</h2><ul>
+<li>使用Next主题：<a href="http://www.cnblogs.com/syd192/p/6074323.html">Hexo的Next主题配置</a>、<a href="http://theme-next.iissnan.com/getting-started.html">Next使用文档</a></li>
+<li>提交百度谷歌收录：<a href="http://www.jianshu.com/p/8c0707ce5da4">Hexo博客收录百度和谷歌-基于Next主题</a></li>
+<li>让搜索引擎更容易找到你：<a href="http://blog.csdn.net/zaoan_wx/article/details/50859675">Hexo SEO优化</a></li>
+<li>另一个优秀主题Icarus：<a href="https://github.com/ppoffice/hexo-theme-icarus">ppoffice/hexo-theme-icarus</a></li>
+</ul>
+
+        </div>
+
+        
+        <br>
+        
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Ryokai
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接： </strong>
+    <a href="/%E5%9F%BA%E4%BA%8EHexo%E5%92%8CGithub%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2/" target="_blank" title="基于Hexo和Github搭建博客">https://blog.ryokai.xyz/基于Hexo和Github搭建博客/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明：  </strong>
+    本博客所有文章除特别声明外，均采用 <i class="fab fa-creative-commons"></i>&nbsp;<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" title="Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)">BY-NC-SA 4.0</a>
+     许可协议。转载请注明出处！
+  </li>
+</ul>
+        
+
+        
+        <hr style="height:1px;margin:1rem 0"/>
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <!-- <span class="is-size-6 has-text-grey has-mr-7">#</span> -->
+                    <i class="fas fa-tags has-text-grey"></i>&nbsp;
+                    <a class="has-link-grey -link" href="/tags/Hexo/" rel="tag">Hexo</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        
+<div class="addthis_inline_share_toolbox"></div>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5e12f1868c478775"></script>
+
+        
+    </div>
+</div>
+
+
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/%E5%85%B3%E4%BA%8E%E6%95%B0%E7%BB%84%E5%90%8D%E5%92%8C%E5%AF%B9%E6%95%B0%E7%BB%84%E5%90%8D%E5%8F%96%E5%9C%B0%E5%9D%80/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">关于数组名和对数组名取地址</span>
+            </a>
+        </div>
+        
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNTQ5Mi8xMjAyOA==">
+    <script type="text/javascript">
+        (function(d, s) {
+            var j, e = d.getElementsByTagName(s)[0];
+
+            if (typeof LivereTower === 'function') { return; }
+
+            j = d.createElement(s);
+            j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+            j.async = true;
+
+            e.parentNode.insertBefore(j, e);
+        })(document, 'script');
+    </script>
+    <noscript> Please activate JavaScript for write a comment in LiveRe</noscript>
+</div>
+
+    </div>
+</div>
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-4-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="is-rounded" src="https://cdn.jsdelivr.net/gh/Ryokai96/image-hosting/profile/20200106134254.png" alt="Ryokai">
+                    </figure>
+                    
+                    <p class="is-size-4 is-block">
+                        Ryokai
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Serendipity
+                    </p>
+                    
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <a href="/archives">
+                        <p class="title has-text-weight-normal">
+                            7
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <a href="/categories">
+                        <p class="title has-text-weight-normal">
+                            4
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <a href="/tags">
+                        <p class="title has-text-weight-normal">
+                            5
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/Ryokai96" target="_blank" rel="noopener">
+                <i class="fab fa-github"></i>&nbsp;&nbsp;&nbsp;关注我
+            </a>
+        </div>
+        
+        
+        
+    </div>
+</div>
+    
+        
+
+    <div class="card widget column-left is-sticky" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#前言">
+        <span class="has-mr-6">1</span>
+        <span>前言</span>
+        </a></li><li>
+        <a class="is-flex" href="#准备工作">
+        <span class="has-mr-6">2</span>
+        <span>准备工作</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#创建对应仓库">
+        <span class="has-mr-6">2.1</span>
+        <span>创建对应仓库</span>
+        </a></li><li>
+        <a class="is-flex" href="#安装Hexo">
+        <span class="has-mr-6">2.2</span>
+        <span>安装Hexo</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#搭建Hexo博客">
+        <span class="has-mr-6">3</span>
+        <span>搭建Hexo博客</span>
+        </a></li><li>
+        <a class="is-flex" href="#Hexo的同步">
+        <span class="has-mr-6">4</span>
+        <span>Hexo的同步</span>
+        </a></li><li>
+        <a class="is-flex" href="#Hexo其他配置">
+        <span class="has-mr-6">5</span>
+        <span>Hexo其他配置</span>
+        </a></li></ul>
+            </div>
+        </div>
+    </div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+        </div>
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="基于Hexo和Github搭建博客" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 Ryokai&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Attribution-NonCommercial-ShareAlike 4.0 International" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">
+                        
+                            
+                        <i class="fab fa-creative-commons"></i>&nbsp;
+                        <i class="fab fa-creative-commons-by"></i>&nbsp;
+                        <i class="fab fa-creative-commons-nc"></i>&nbsp;
+                        <i class="fab fa-creative-commons-sa"></i>&nbsp;
+                        <!-- <img src="fab fa-creative-commons,fab fa-creative-commons-by,fab fa-creative-commons-nc,fab fa-creative-commons-sa" alt="Creative Commons"> -->
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+<script>
+var IcarusThemeSettings = {
+    site: {
+        url: 'https://blog.ryokai.xyz',
+        external_link: {"enable":true,"exclude":[]}
+    },
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+
+
+<script src="/js/animation.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="/js/gallery.js" defer></script>
+
+
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

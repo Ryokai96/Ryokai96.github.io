@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 4.2.0" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>在CentOS7上搭建ZooKeeper+Dubbo分布式服务 - Ryokai 的博客</title>
+
+
+    <meta name="description" content="在CentOS7上搭建ZooKeeper+Dubbo分布式服务">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在CentOS7上搭建ZooKeeper+Dubbo分布式服务">
+<meta property="og:url" content="https://blog.ryokai.xyz/%E5%9C%A8CentOS7%E4%B8%8A%E6%90%AD%E5%BB%BAZooKeeper-Dubbo%E5%88%86%E5%B8%83%E5%BC%8F%E6%9C%8D%E5%8A%A1/index.html">
+<meta property="og:site_name" content="Ryokai 的博客">
+<meta property="og:description" content="在CentOS7上搭建ZooKeeper+Dubbo分布式服务">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/Ryokai96/image-hosting/daily/20200106134405.png">
+<meta property="article:published_time" content="2018-01-21T12:20:05.000Z">
+<meta property="article:modified_time" content="2018-01-21T12:20:05.000Z">
+<meta property="article:author" content="Ryokai">
+<meta property="article:tag" content="ZooKeeper">
+<meta property="article:tag" content=" Dubbo">
+<meta property="article:tag" content=" CentOS">
+<meta property="article:tag" content=" 搭建ZooKeeper+Dubbo分布式服务">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/Ryokai96/image-hosting/daily/20200106134405.png">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.lug.ustc.edu.cn/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+    
+    
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-2-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="在CentOS7上搭建ZooKeeper+Dubbo分布式服务" height="28" width="98">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">首页</a>
+                
+                <a class="navbar-item"
+                href="/archives">归档</a>
+                
+                <a class="navbar-item"
+                href="/categories">分类</a>
+                
+                <a class="navbar-item"
+                href="/tags">标签</a>
+                
+                <a class="navbar-item"
+                href="/about">关于</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-8-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="https://cdn.jsdelivr.net/gh/Ryokai96/image-hosting/daily/20200106134405.png" alt="在CentOS7上搭建ZooKeeper+Dubbo分布式服务">
+        </span>
+    </div>
+    
+    <div class="card-content article ">
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                在CentOS7上搭建ZooKeeper+Dubbo分布式服务
+            
+        </h1>
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <i class="far fa-calendar-alt has-text-grey"></i>&nbsp;
+                <time class="level-item has-text-grey" datetime="2018-01-21T12:20:05.000Z">
+                    2018-01-21
+                </time>
+                
+                
+                <div class="level-item">
+                    <i class="far fa-folder-open has-text-grey"></i>&nbsp;
+                <a class="has-link-grey -link" href="/categories/Java/">Java</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/Java/Dubbo/">Dubbo</a>
+                </div>
+                
+                
+                <i class="far fa-clock has-text-grey">&nbsp;</i>
+                <span class="level-item has-text-grey">
+                    
+                    
+                    6 分钟 读完 (大约 946 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <div class="content">
+            <h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><ul>
+<li>系统: CentOS 7.3 x64</li>
+<li>JDK: JDK1.8 8u161</li>
+<li>Ant: apache-ant-1.10.1</li>
+<li>Maven: apache-maven-3.5.2</li>
+<li>Tomcat: apache-tomcat-8.5.24</li>
+<li>ZooKeeper: zookeeper 3.4.11</li>
+</ul>
+<a id="more"></a>
+
+<h2 id="开始搭建"><a href="#开始搭建" class="headerlink" title="开始搭建"></a>开始搭建</h2><h3 id="安装ZooKeeper"><a href="#安装ZooKeeper" class="headerlink" title="安装ZooKeeper"></a>安装ZooKeeper</h3><ol>
+<li><p>解压zookeeper-3.4.11.tar.gz，移动到/opt目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf zookeeper-3.4.11.tar.gz</span><br><span class="line">mv zookeeper-3.4.11 /opt/</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编辑配置文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cd /opt/zookeeper-3.4.11/conf</span><br><span class="line">cp zoo_sample.cfg zoo.cfg</span><br><span class="line">vim zoo.cfg</span><br><span class="line"><span class="meta">#</span><span class="bash"> 替换下面内容</span></span><br><span class="line">dataDir=/tmp/zookeeper/data</span><br><span class="line">dataLogDir=/tmp/zookeeper/logs</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建zookeeper数据和日志目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">cd /tmp</span><br><span class="line">mkdir zookeeper</span><br><span class="line">cd zookeeper</span><br><span class="line">mkdir data logs</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动zookeeper</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /opt/zookeeper-3.4.11/bin</span><br><span class="line">./zkServer.sh start</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>下面是打包成rpm包安装方式，血泪史，可以不看跳过</p>
+<p>下载必要的软件包</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install -y rpm-build rpmdevtools mock</span><br></pre></td></tr></table></figure>
+
+<p>下载<a href="https://github.com/skottler/zookeeper-rpms">zookeeper-rpms</a>: zookeeper-rpms包含了用于zookeeper构建RPM所需的一切，注意: 应下载用于zookeeper3.4.10的commit也就是58c775d这个commit，3.4.11的版本用这个仓库在centos7上有问题，暂未找到解决方法</p>
+<p>然后按照说明进行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cd zookeeper-rpms</span><br><span class="line">rpmdev-setuptree</span><br><span class="line">spectool -g zookeeper.spec</span><br><span class="line">rpmbuild -bs --nodeps --define "_sourcedir $(pwd)" --define "_srcrpmdir $(pwd)" zookeeper.spec</span><br><span class="line"><span class="meta">#</span><span class="bash"> 这里直接执行sudo mock zookeeper-3.4.10-1.src.rpm会失败，在zookeeper-rpms的Issues中找到解决方法，输入如下命令即可</span></span><br><span class="line">sudo mock -r epel-7-x86_64 --old-chroot zookeeper-3.4.10-1.src.rpm</span><br></pre></td></tr></table></figure>
+
+<p> 打包好的文件在/var/lib/mock/epel-7-x86_64/result中</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /var/lib/mock/epel-7-x86_64/result</span><br><span class="line">yum localinstall zookeeper-3.4.10-1.x86_64.rpm</span><br></pre></td></tr></table></figure>
+
+<p>然后就可以输入命令启动zookeeper</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zookeeper start</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<p>   下面是自行打包rpm，最后失败告终，血泪史中的血泪史</p>
+   <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> zookeeper-3.4.11中包含的README_packaging.txt中所说，打包成rpm需要先安装cppunit和python-setuptools</span></span><br><span class="line">yum install cppunit</span><br><span class="line">yum install python-setuptools</span><br><span class="line"><span class="meta">#</span><span class="bash"> 然后执行</span></span><br><span class="line">ant rpm</span><br><span class="line"><span class="meta">#</span><span class="bash"> 报错，在一个java文件中import了一个包，这个包找不到，包名忘了，谷歌无果，遂放弃zookeeper-3.4.11，下载zookeeper-3.4.10</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 然后执行</span></span><br><span class="line">ant rpm</span><br><span class="line"><span class="meta">#</span><span class="bash"> 同样报错，但不是一样的错误，好在能在谷歌上搜到出错原因，就是打包rpm还要依赖其他软件包，于是安装，安装后ant继续报错，继续谷歌，发现全是缺乏依赖的软件包，然后就报错-&gt;装软件-&gt;ant-&gt;报错-&gt;...循环，最后安装的软件列表如下</span></span><br><span class="line">gcc</span><br><span class="line">gcc-g++</span><br><span class="line">autoconf</span><br><span class="line">automake</span><br><span class="line">autogen</span><br><span class="line">cppunit-devel</span><br><span class="line">libtool</span><br><span class="line">python-devel</span><br><span class="line">rpm-build</span><br><span class="line">rpmdevtools</span><br><span class="line">mock</span><br><span class="line"><span class="meta">#</span><span class="bash"> 最后还是报错，报文件找不到，放弃，谷歌寻找ZooKeeper打包rpm的方法，最后找到了https://github.com/skottler/zookeeper-rpms</span></span><br></pre></td></tr></table></figure>
+
+
+
+
+<h2 id="运行dubbo-admin"><a href="#运行dubbo-admin" class="headerlink" title="运行dubbo-admin"></a>运行dubbo-admin</h2><ol>
+<li><p>解压dubbo-2.5.9.tar.gz，移动至/opt目录(我习惯放在/opt目录)</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tar zxvf dubbo-2.5.9.tar.gz</span><br><span class="line">mv dubbo-dubbo-2.5.9 /opt</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在dubbo项目根目录，执行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mvn install -Dmaven.skip.test</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>上一步执行后，会在dubbo-admin/target下生成war包，将其移动至tomcat目录</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 在tomcat目录下新建dubbo-admin目录</span></span><br><span class="line">cd /opt/apache-tomcat-8.5.24/</span><br><span class="line">mkdir dubbo-admin</span><br><span class="line"><span class="meta">#</span><span class="bash"> 将之前生成的war包移动到这里</span></span><br><span class="line">mv /opt/dubbo-dubbo-2.5.9/dubbo-admin/target/dubbo-admin-2.5.9.war ./</span><br><span class="line"><span class="meta">#</span><span class="bash"> 解压，指定解压后的目录名为ROOT</span></span><br><span class="line">unzip dubbo-admin-2.5.9.war -d ROOT</span><br><span class="line"><span class="meta">#</span><span class="bash"> 可以把war包删了</span></span><br><span class="line">rm -f dubbo-admin-2.5.9.war</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编辑dubbo-admin的配置文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">cd ROOT/WEB-INF/</span><br><span class="line">vim dubbo.properties</span><br><span class="line"><span class="meta">#</span><span class="bash"> 这里可以配置dubbo注册中心的类型及地址，dubbo的root用户和guest用户的密码</span></span><br><span class="line">dubbo.registry.address=zookeeper://127.0.0.1:2181</span><br><span class="line">dubbo.admin.root.password=root</span><br><span class="line">dubbo.admin.guest.password=guest</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编辑tomcat配置文件</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">cd /opt/apache-tomcat-8.5.24/conf</span><br><span class="line">vim server.xml</span><br><span class="line"><span class="meta">#</span><span class="bash"> 在&lt;server&gt;&lt;/server&gt;中添加一个Service节点</span></span><br><span class="line">&lt;Service name="dubbo-admin"&gt;</span><br><span class="line"></span><br><span class="line">    &lt;Connector port="8081" protocol="HTTP/1.1"</span><br><span class="line">               connectionTimeout="20000"</span><br><span class="line">               redirectPort="8443" /&gt;</span><br><span class="line">    &lt;Connector port="8010" protocol="AJP/1.3" redirectPort="8445" /&gt;</span><br><span class="line">    &lt;Engine name="Catalina" defaultHost="localhost"&gt;</span><br><span class="line">      &lt;Realm className="org.apache.catalina.realm.LockOutRealm"&gt;</span><br><span class="line">        &lt;Realm className="org.apache.catalina.realm.UserDatabaseRealm"</span><br><span class="line">               resourceName="UserDatabase"/&gt;</span><br><span class="line">      &lt;/Realm&gt;</span><br><span class="line"></span><br><span class="line">      &lt;Host name="localhost"  appBase="dubbo-admin"</span><br><span class="line">            unpackWARs="true" autoDeploy="true"&gt;</span><br><span class="line"></span><br><span class="line">        &lt;Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs"</span><br><span class="line">               prefix="localhost_access_log" suffix=".txt"</span><br><span class="line">               pattern="%h %l %u %t &amp;quot;%r&amp;quot; %s %b" /&gt;</span><br><span class="line"></span><br><span class="line">      &lt;/Host&gt;</span><br><span class="line">	&lt;/Engine&gt;</span><br><span class="line">&lt;/Service&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>启动tomcat</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/opt/apache-tomcat-8.5.24/bin/startup.sh</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>开放8081端口</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 我使用的防火墙是firewalld，用iptables的自行网上搜开放端口的方法</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看已经开放的端口</span></span><br><span class="line">firewall-cmd --list-ports </span><br><span class="line"><span class="meta">#</span><span class="bash"> 若没有8081端口，开放它</span></span><br><span class="line">firewall-cmd --zone=public --add-port=8081/tcp --permanent</span><br><span class="line"><span class="meta">#</span><span class="bash"> 重启防火墙</span></span><br><span class="line">firewall-cmd --reload</span><br><span class="line"><span class="meta">#</span><span class="bash"> 查看已经开放的端口</span></span><br><span class="line">firewall-cmd --list-ports</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>浏览器访问ip:8081即可看见Dubbo Admin页面</p>
+</li>
+</ol>
+
+        </div>
+
+        
+        <br>
+        
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Ryokai
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接： </strong>
+    <a href="/%E5%9C%A8CentOS7%E4%B8%8A%E6%90%AD%E5%BB%BAZooKeeper-Dubbo%E5%88%86%E5%B8%83%E5%BC%8F%E6%9C%8D%E5%8A%A1/" target="_blank" title="在CentOS7上搭建ZooKeeper+Dubbo分布式服务">https://blog.ryokai.xyz/在CentOS7上搭建ZooKeeper-Dubbo分布式服务/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明：  </strong>
+    本博客所有文章除特别声明外，均采用 <i class="fab fa-creative-commons"></i>&nbsp;<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" title="Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)">BY-NC-SA 4.0</a>
+     许可协议。转载请注明出处！
+  </li>
+</ul>
+        
+
+        
+        <hr style="height:1px;margin:1rem 0"/>
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <!-- <span class="is-size-6 has-text-grey has-mr-7">#</span> -->
+                    <i class="fas fa-tags has-text-grey"></i>&nbsp;
+                    <a class="has-link-grey -link" href="/tags/Dubbo/" rel="tag">Dubbo</a>, <a class="has-link-grey -link" href="/tags/ZooKeeper/" rel="tag">ZooKeeper</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        
+<div class="addthis_inline_share_toolbox"></div>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5e12f1868c478775"></script>
+
+        
+    </div>
+</div>
+
+
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/Java%E8%B0%83%E7%94%A8%E9%9D%99%E6%80%81%E6%96%B9%E6%B3%95%E9%9C%80%E8%A6%81%E7%B1%BB%E8%A3%85%E8%BD%BD%E8%BF%98%E6%98%AF%E5%88%9D%E5%A7%8B%E5%8C%96/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">Java调用静态方法需要类装载还是初始化?</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/Java%E4%BB%A3%E7%90%86%E6%A8%A1%E5%BC%8F%E5%B0%8F%E7%BB%93/">
+                <span class="level-item">Java代理模式小结</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNTQ5Mi8xMjAyOA==">
+    <script type="text/javascript">
+        (function(d, s) {
+            var j, e = d.getElementsByTagName(s)[0];
+
+            if (typeof LivereTower === 'function') { return; }
+
+            j = d.createElement(s);
+            j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+            j.async = true;
+
+            e.parentNode.insertBefore(j, e);
+        })(document, 'script');
+    </script>
+    <noscript> Please activate JavaScript for write a comment in LiveRe</noscript>
+</div>
+
+    </div>
+</div>
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-4-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="is-rounded" src="https://cdn.jsdelivr.net/gh/Ryokai96/image-hosting/profile/20200106134254.png" alt="Ryokai">
+                    </figure>
+                    
+                    <p class="is-size-4 is-block">
+                        Ryokai
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Serendipity
+                    </p>
+                    
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <a href="/archives">
+                        <p class="title has-text-weight-normal">
+                            7
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <a href="/categories">
+                        <p class="title has-text-weight-normal">
+                            4
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <a href="/tags">
+                        <p class="title has-text-weight-normal">
+                            5
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/Ryokai96" target="_blank" rel="noopener">
+                <i class="fab fa-github"></i>&nbsp;&nbsp;&nbsp;关注我
+            </a>
+        </div>
+        
+        
+        
+    </div>
+</div>
+    
+        
+
+    <div class="card widget column-left is-sticky" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#环境">
+        <span class="has-mr-6">1</span>
+        <span>环境</span>
+        </a></li><li>
+        <a class="is-flex" href="#开始搭建">
+        <span class="has-mr-6">2</span>
+        <span>开始搭建</span>
+        </a><ul class="menu-list"><li>
+        <a class="is-flex" href="#安装ZooKeeper">
+        <span class="has-mr-6">2.1</span>
+        <span>安装ZooKeeper</span>
+        </a></li></ul></li><li>
+        <a class="is-flex" href="#运行dubbo-admin">
+        <span class="has-mr-6">3</span>
+        <span>运行dubbo-admin</span>
+        </a></li></ul>
+            </div>
+        </div>
+    </div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+        </div>
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="在CentOS7上搭建ZooKeeper+Dubbo分布式服务" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 Ryokai&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Attribution-NonCommercial-ShareAlike 4.0 International" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">
+                        
+                            
+                        <i class="fab fa-creative-commons"></i>&nbsp;
+                        <i class="fab fa-creative-commons-by"></i>&nbsp;
+                        <i class="fab fa-creative-commons-nc"></i>&nbsp;
+                        <i class="fab fa-creative-commons-sa"></i>&nbsp;
+                        <!-- <img src="fab fa-creative-commons,fab fa-creative-commons-by,fab fa-creative-commons-nc,fab fa-creative-commons-sa" alt="Creative Commons"> -->
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+<script>
+var IcarusThemeSettings = {
+    site: {
+        url: 'https://blog.ryokai.xyz',
+        external_link: {"enable":true,"exclude":[]}
+    },
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+
+
+<script src="/js/animation.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="/js/gallery.js" defer></script>
+
+
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>

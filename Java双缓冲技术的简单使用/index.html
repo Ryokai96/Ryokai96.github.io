@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <meta charset="utf-8" />
+
+<meta name="generator" content="Hexo 4.2.0" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+<title>Java双缓冲技术的简单使用 - Ryokai 的博客</title>
+
+
+    <meta name="description" content="Java双缓冲技术的原理解释，以及使用Java双缓冲技术的简单使用示例">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java双缓冲技术的简单使用">
+<meta property="og:url" content="https://blog.ryokai.xyz/Java%E5%8F%8C%E7%BC%93%E5%86%B2%E6%8A%80%E6%9C%AF%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:site_name" content="Ryokai 的博客">
+<meta property="og:description" content="Java双缓冲技术的原理解释，以及使用Java双缓冲技术的简单使用示例">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://blog.ryokai.xyz/images/og_image.png">
+<meta property="article:published_time" content="2017-05-07T08:14:10.000Z">
+<meta property="article:modified_time" content="2017-05-07T08:14:10.000Z">
+<meta property="article:author" content="Ryokai">
+<meta property="article:tag" content="Java">
+<meta property="article:tag" content=" double buffer">
+<meta property="article:tag" content=" 双缓冲技术">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://blog.ryokai.xyz/images/og_image.png">
+
+
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.lug.ustc.edu.cn/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+
+
+    
+    
+<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+
+    
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+
+    
+    
+    
+    
+<link rel="stylesheet" href="/css/back-to-top.css">
+
+    
+    
+    
+    
+    
+    
+    
+    <link rel="stylesheet" href="/css/progressbar.css">
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+    
+    
+    
+
+
+<link rel="stylesheet" href="/css/style.css">
+</head>
+<body class="is-2-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="Java双缓冲技术的简单使用" height="28" width="98">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item"
+                href="/">首页</a>
+                
+                <a class="navbar-item"
+                href="/archives">归档</a>
+                
+                <a class="navbar-item"
+                href="/categories">分类</a>
+                
+                <a class="navbar-item"
+                href="/tags">标签</a>
+                
+                <a class="navbar-item"
+                href="/about">关于</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                
+                <a class="navbar-item is-hidden-tablet catalogue" title="目录" href="javascript:;">
+                    <i class="fas fa-list-ul"></i>
+                </a>
+                
+                
+                <a class="navbar-item search" title="搜索" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-8-widescreen has-order-2 column-main">
+<div class="card">
+    
+    <div class="card-content article ">
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                Java双缓冲技术的简单使用
+            
+        </h1>
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <i class="far fa-calendar-alt has-text-grey"></i>&nbsp;
+                <time class="level-item has-text-grey" datetime="2017-05-07T08:14:10.000Z">
+                    2017-05-07
+                </time>
+                
+                
+                <div class="level-item">
+                    <i class="far fa-folder-open has-text-grey"></i>&nbsp;
+                <a class="has-link-grey -link" href="/categories/Java/">Java</a>
+                </div>
+                
+                
+                <i class="far fa-clock has-text-grey">&nbsp;</i>
+                <span class="level-item has-text-grey">
+                    
+                    
+                    6 分钟 读完 (大约 910 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <div class="content">
+            <p>​    动画的刷新频率越快，那么动画看起来就越连贯。</p>
+<p>​    但是使用java的GUI技术的时候，提高重画频率往往会出现闪烁，移动的物体看起来有点一顿一顿的，原因就是重画频率太快，上个paint方法还没有完成就开始执行下个paint方法了。</p>
+<p>​    要解决这个问题，可以使用java的双缓冲技术。<a id="more"></a></p>
+<h3 id="双缓冲技术原理"><a href="#双缓冲技术原理" class="headerlink" title="双缓冲技术原理"></a>双缓冲技术原理</h3><p>​    每一次调用paint方法之前，先把paint方法需要画出来的东西画在一张虚拟的图片上，画完后再显示在屏幕上</p>
+<ol>
+<li><p>创建个Image对象，用于存放虚拟的图片</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Image offScreenImage = <span class="keyword">null</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>重写update方法</p>
+<p>我们知道repaint方法会调用update方法，由update方法来调用paint方法，那么只要重写update方法，就可以对paint方法的调用进行控制</p>
+<p>有关repaint、update和paint之间的关系，可以看这篇文章：<a href="http://blog.csdn.net/xiaoliangmeiny/article/details/6916657">关于Java中的paint，repaint，update三个方法的关系</a></p>
+<p>重写的步骤：</p>
+<ul>
+<li>首先创建一张和整个窗体一样大的图片</li>
+<li>把内容画到图片上</li>
+<li>把图片画到屏幕上</li>
+</ul>
+<p>代码示例如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">(Graphics g)</span> </span>&#123;</span><br><span class="line">  	<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">  	<span class="keyword">if</span>(offScreenImage == <span class="keyword">null</span>) &#123;</span><br><span class="line">    	offScreenImage = <span class="keyword">this</span>.createImage(WIDTH, HEIGHT);	<span class="comment">//创建一张大小和窗口大小一样的虚拟图片</span></span><br><span class="line">  	&#125;</span><br><span class="line">  	Graphics gOffScreen = offScreenImage.getGraphics();	<span class="comment">//获得画笔</span></span><br><span class="line"></span><br><span class="line">  	<span class="comment">//刷新背景，否则物体运动痕迹会保留</span></span><br><span class="line">  	Color c = gOffScreen.getColor();	<span class="comment">//复制原前景色</span></span><br><span class="line">  	gOffScreen.setColor(backgroundColor);	<span class="comment">//backgroundColor为原来设置的背景色</span></span><br><span class="line">  	gOffScreen.fillRect(<span class="number">0</span>, <span class="number">0</span>, WIDTH, HEIGHT);	<span class="comment">//画一个矩形覆盖掉原来的图像</span></span><br><span class="line">  	gOffScreen.setColor(c);	<span class="comment">//还原前景色</span></span><br><span class="line"></span><br><span class="line">  	paint(gOffScreen);	<span class="comment">//画到虚拟图片上</span></span><br><span class="line">  	g.drawImage(offScreenImage, <span class="number">0</span>, <span class="number">0</span>, <span class="keyword">null</span>);	<span class="comment">//把图片画到屏幕上</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<h3 id="双缓冲示例"><a href="#双缓冲示例" class="headerlink" title="双缓冲示例"></a>双缓冲示例</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.ryokai96.test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.awt.Color;</span><br><span class="line"><span class="keyword">import</span> java.awt.Frame;</span><br><span class="line"><span class="keyword">import</span> java.awt.Graphics;</span><br><span class="line"><span class="keyword">import</span> java.awt.Image;</span><br><span class="line"><span class="keyword">import</span> java.awt.event.WindowAdapter;</span><br><span class="line"><span class="keyword">import</span> java.awt.event.WindowEvent;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DoubleBufferTest</span> <span class="keyword">extends</span> <span class="title">Frame</span></span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> WIDTH = <span class="number">800</span>;	<span class="comment">//窗口宽</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> HEIGHT = <span class="number">600</span>;	<span class="comment">//窗口高</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> x = <span class="number">50</span>;	<span class="comment">//圆的横坐标</span></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">int</span> y = <span class="number">50</span>;	<span class="comment">//圆的纵坐标</span></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> Image offScreenImage = <span class="keyword">null</span>;	<span class="comment">//用于实现双缓冲</span></span><br><span class="line">	</span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	 * 此方法用于创建窗口</span></span><br><span class="line"><span class="comment">	*/</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">launchFrame</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		</span><br><span class="line">		setSize(WIDTH, HEIGHT);</span><br><span class="line">		setTitle(<span class="string">"DoubleBufferTest"</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//jdk1.4之后提供的方法，setLocationRelativeTo(owner);</span></span><br><span class="line">		<span class="comment">//这种方法是设定一个窗口的相对于另外一个窗口的位置（一般是居中于父窗口的中间）</span></span><br><span class="line">		<span class="comment">//如果owner==null则窗口就居于屏幕的中央。</span></span><br><span class="line">		setLocationRelativeTo(<span class="keyword">null</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="comment">//使窗口可关闭</span></span><br><span class="line">		<span class="keyword">this</span>.addWindowListener(<span class="keyword">new</span> WindowAdapter() &#123;</span><br><span class="line"></span><br><span class="line">			<span class="meta">@Override</span></span><br><span class="line">			<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">windowClosing</span><span class="params">(WindowEvent e)</span> </span>&#123;</span><br><span class="line">				<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">				System.exit(<span class="number">0</span>);</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">		&#125;);</span><br><span class="line">		setResizable(<span class="keyword">false</span>);	<span class="comment">//设置不可改变窗口大小</span></span><br><span class="line">		<span class="keyword">this</span>.setBackground(Color.white);</span><br><span class="line">		</span><br><span class="line">		setVisible(<span class="keyword">true</span>);</span><br><span class="line">		</span><br><span class="line">		<span class="keyword">new</span> Thread(<span class="keyword">new</span> PaintThread()).start();	<span class="comment">//开启repaint线程</span></span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	 * 重写update方法，实现双缓冲，以消除闪烁</span></span><br><span class="line"><span class="comment">	*/</span></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">update</span><span class="params">(Graphics g)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		<span class="keyword">if</span>(offScreenImage == <span class="keyword">null</span>) &#123;</span><br><span class="line">			offScreenImage = <span class="keyword">this</span>.createImage(WIDTH, HEIGHT);	<span class="comment">//创建一张大小和窗口大小一样的虚拟图片</span></span><br><span class="line">		&#125;</span><br><span class="line">		Graphics gOffScreen = offScreenImage.getGraphics();	<span class="comment">//获得画笔</span></span><br><span class="line">		</span><br><span class="line">		<span class="comment">//刷新背景，否则物体运动痕迹会保留</span></span><br><span class="line">		Color c = gOffScreen.getColor();</span><br><span class="line">		gOffScreen.setColor(Color.white);</span><br><span class="line">		gOffScreen.fillRect(<span class="number">0</span>, <span class="number">0</span>, WIDTH, HEIGHT);</span><br><span class="line">		gOffScreen.setColor(c);</span><br><span class="line">		</span><br><span class="line">		paint(gOffScreen);	<span class="comment">//画到虚拟图片上</span></span><br><span class="line">		g.drawImage(offScreenImage, <span class="number">0</span>, <span class="number">0</span>, <span class="keyword">null</span>);	<span class="comment">//把图片画到屏幕上</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">paint</span><span class="params">(Graphics g)</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		Color c = g.getColor();	<span class="comment">//取出原前景色</span></span><br><span class="line">		g.setColor(Color.RED);	<span class="comment">//设置前景色</span></span><br><span class="line">		g.fillOval(<span class="keyword">this</span>.x, <span class="keyword">this</span>.y, <span class="number">30</span>, <span class="number">30</span>);	<span class="comment">//画圆</span></span><br><span class="line">		g.setColor(c);	<span class="comment">//恢复原前景色</span></span><br><span class="line">		</span><br><span class="line">		y += <span class="number">5</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/*</span></span><br><span class="line"><span class="comment">	 * 用于重画的线程</span></span><br><span class="line"><span class="comment">	*/</span></span><br><span class="line">	<span class="keyword">private</span> <span class="class"><span class="keyword">class</span> <span class="title">PaintThread</span> <span class="keyword">implements</span> <span class="title">Runnable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">		<span class="meta">@Override</span></span><br><span class="line">		<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">			<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">			<span class="keyword">while</span>(<span class="keyword">true</span>)</span><br><span class="line">			&#123;</span><br><span class="line">				repaint();	<span class="comment">//重画</span></span><br><span class="line">				<span class="keyword">try</span> &#123;</span><br><span class="line">					Thread.sleep(<span class="number">50</span>);	<span class="comment">//每隔50ms重画一次</span></span><br><span class="line">				&#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">					<span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">					e.printStackTrace();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		DoubleBufferTest tc = <span class="keyword">new</span> DoubleBufferTest();</span><br><span class="line">		tc.launchFrame();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+        </div>
+
+        
+        <br>
+        
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>Ryokai
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接： </strong>
+    <a href="/Java%E5%8F%8C%E7%BC%93%E5%86%B2%E6%8A%80%E6%9C%AF%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/" target="_blank" title="Java双缓冲技术的简单使用">https://blog.ryokai.xyz/Java双缓冲技术的简单使用/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明：  </strong>
+    本博客所有文章除特别声明外，均采用 <i class="fab fa-creative-commons"></i>&nbsp;<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" title="Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)">BY-NC-SA 4.0</a>
+     许可协议。转载请注明出处！
+  </li>
+</ul>
+        
+
+        
+        <hr style="height:1px;margin:1rem 0"/>
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <!-- <span class="is-size-6 has-text-grey has-mr-7">#</span> -->
+                    <i class="fas fa-tags has-text-grey"></i>&nbsp;
+                    <a class="has-link-grey -link" href="/tags/Java/" rel="tag">Java</a>
+                </div>
+            </div>
+        </div>
+        
+        
+        
+        
+<div class="addthis_inline_share_toolbox"></div>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5e12f1868c478775"></script>
+
+        
+    </div>
+</div>
+
+
+
+
+
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        <div class="level-start">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/Java%E9%9D%99%E6%80%81%E4%BB%A3%E7%A0%81%E5%9D%97%E6%89%A7%E8%A1%8C%E6%97%B6%E6%9C%BA/">
+                <i class="level-item fas fa-chevron-left"></i>
+                <span class="level-item">Java静态代码块执行时机</span>
+            </a>
+        </div>
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/%E5%85%B3%E4%BA%8E%E6%95%B0%E7%BB%84%E5%90%8D%E5%92%8C%E5%AF%B9%E6%95%B0%E7%BB%84%E5%90%8D%E5%8F%96%E5%9C%B0%E5%9D%80/">
+                <span class="level-item">关于数组名和对数组名取地址</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<div class="card">
+    <div class="card-content">
+        <h3 class="title is-5 has-text-weight-normal">评论</h3>
+        
+<div id="lv-container" data-id="city" data-uid="MTAyMC8zNTQ5Mi8xMjAyOA==">
+    <script type="text/javascript">
+        (function(d, s) {
+            var j, e = d.getElementsByTagName(s)[0];
+
+            if (typeof LivereTower === 'function') { return; }
+
+            j = d.createElement(s);
+            j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+            j.async = true;
+
+            e.parentNode.insertBefore(j, e);
+        })(document, 'script');
+    </script>
+    <noscript> Please activate JavaScript for write a comment in LiveRe</noscript>
+</div>
+
+    </div>
+</div>
+</div>
+                
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-4-widescreen  has-order-1 column-left ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered" style="flex-shrink: 1">
+                <div>
+                    
+                    <figure class="image is-128x128 has-mb-6">
+                        <img class="is-rounded" src="https://cdn.jsdelivr.net/gh/Ryokai96/image-hosting/profile/20200106134254.png" alt="Ryokai">
+                    </figure>
+                    
+                    <p class="is-size-4 is-block">
+                        Ryokai
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        Serendipity
+                    </p>
+                    
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        文章
+                    </p>
+                    <a href="/archives">
+                        <p class="title has-text-weight-normal">
+                            7
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        分类
+                    </p>
+                    <a href="/categories">
+                        <p class="title has-text-weight-normal">
+                            4
+                        </p>
+                    </a>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        标签
+                    </p>
+                    <a href="/tags">
+                        <p class="title has-text-weight-normal">
+                            5
+                        </p>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/Ryokai96" target="_blank" rel="noopener">
+                <i class="fab fa-github"></i>&nbsp;&nbsp;&nbsp;关注我
+            </a>
+        </div>
+        
+        
+        
+    </div>
+</div>
+    
+        
+
+    <div class="card widget column-left is-sticky" id="toc">
+        <div class="card-content">
+            <div class="menu">
+                <h3 class="menu-label">
+                    目录
+                </h3>
+                <ul class="menu-list"><li>
+        <a class="is-flex" href="#双缓冲技术原理">
+        <span class="has-mr-6">1</span>
+        <span>双缓冲技术原理</span>
+        </a></li><li>
+        <a class="is-flex" href="#双缓冲示例">
+        <span class="has-mr-6">2</span>
+        <span>双缓冲示例</span>
+        </a></li></ul>
+            </div>
+        </div>
+    </div>
+
+    
+    
+        <div class="column-right-shadow is-hidden-widescreen ">
+        
+        </div>
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="Java双缓冲技术的简单使用" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2020 Ryokai&nbsp;
+                Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> & <a
+                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a>
+                
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Attribution-NonCommercial-ShareAlike 4.0 International" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">
+                        
+                            
+                        <i class="fab fa-creative-commons"></i>&nbsp;
+                        <i class="fab fa-creative-commons-by"></i>&nbsp;
+                        <i class="fab fa-creative-commons-nc"></i>&nbsp;
+                        <i class="fab fa-creative-commons-sa"></i>&nbsp;
+                        <!-- <img src="fab fa-creative-commons,fab fa-creative-commons-by,fab fa-creative-commons-nc,fab fa-creative-commons-sa" alt="Creative Commons"> -->
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-CN");</script>
+
+
+<script>
+var IcarusThemeSettings = {
+    site: {
+        url: 'https://blog.ryokai.xyz',
+        external_link: {"enable":true,"exclude":[]}
+    },
+    article: {
+        highlight: {
+            clipboard: true,
+            fold: 'unfolded'
+        }
+    }
+};
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
+
+
+
+
+
+<script src="/js/animation.js"></script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
+<script src="/js/gallery.js" defer></script>
+
+
+
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
+            my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        });
+    });
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    MathJax.Hub.Config({
+        'HTML-CSS': {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+});
+</script>
+
+
+<a id="back-to-top" title="回到顶端" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<script src="/js/back-to-top.js" defer></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/js/main.js" defer></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="想要查找什么..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: '文章',
+                PAGES: '页面',
+                CATEGORIES: '分类',
+                TAGS: '标签',
+                UNTITLED: '(无标题)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js" defer></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>
