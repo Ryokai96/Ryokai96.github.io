@@ -12,7 +12,7 @@ button,
 input,
 select,
 textarea {
-  font-family: 'Lato', 'Noto Sans SC', 'Noto Sans JP', sans-serif;
+  font-family: 'Noto Sans SC', sans-serif;
 }
 @media screen and (min-width: 1280px) {
   .is-1-column .container,
@@ -80,6 +80,7 @@ img.thumbnail {
   max-height: 1.75rem;
 }
 .navbar-main {
+  font-family: 'EB Garamond', 'Noto Serif SC', serif;
   box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 .navbar-main .navbar-menu,
@@ -125,16 +126,23 @@ img.thumbnail {
   }
 }
 .footer {
+  font-family: 'EB Garamond', 'Noto Serif SC', serif;
   background: #fff;
 }
 .footer .field .button {
   background: transparent;
+}
+.widget .heading {
+  font-family: 'EB Garamond', 'Noto Serif SC', serif;
 }
 .widget .media {
   border: none;
 }
 .widget .media + .media {
   margin-top: 0;
+}
+.widget .menu-label {
+  font-family: 'EB Garamond', 'Noto Serif SC', serif;
 }
 .widget .menu-list li ul {
   margin-right: 0;
@@ -155,6 +163,11 @@ img.thumbnail {
 .pagination .pagination-previous,
 .pagination .pagination-next {
   box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  font-family: 'EB Garamond', 'Noto Serif SC', serif;
+}
+.pagination .pagination-previous,
+.pagination .pagination-next {
+  font-family: 'EB Garamond', 'Noto Serif SC', serif;
 }
 .post-navigation {
   justify-content: space-around;
@@ -391,7 +404,7 @@ img.thumbnail {
 }
 .content code,
 .content pre {
-  font-family: "Fira Code", monospace, "Noto Sans SC";
+  font-family: 'Fira Code', monospace, 'Noto Sans SC';
 }
 .content pre {
   font-size: 0.85em;
@@ -462,7 +475,7 @@ figure.highlight figcaption:after {
 }
 figure.highlight figcaption span {
   font-weight: 500;
-  font-family: "Fira Code", monospace, "Noto Sans SC";
+  font-family: 'Fira Code', monospace, 'Noto Sans SC';
 }
 figure.highlight figcaption .fold,
 figure.highlight figcaption a {

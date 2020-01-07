@@ -13,7 +13,7 @@
         $('.article-meta time').each(function () {
             // 取消 x年前 的时间显示
             // $(this).text(moment($(this).attr('datetime')).fromNow());
-            $(this).text(moment($(this).attr('datetime')).format('LL'));
+            // $(this).text(moment($(this).attr('datetime')).format('LL'));
         });
     }
 
