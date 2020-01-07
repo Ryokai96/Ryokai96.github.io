@@ -12,7 +12,7 @@ button,
 input,
 select,
 textarea {
-  font-family: "Ubuntu", "Roboto", "Open Sans", "Microsoft YaHei", sans-serif;
+  font-family: 'Noto Sans SC', sans-serif;
 }
 @media screen and (min-width: 1280px) {
   .is-1-column .container,
@@ -391,7 +391,7 @@ img.thumbnail {
 }
 .content code,
 .content pre {
-  font-family: "Source Code Pro", monospace, "Microsoft YaHei";
+  font-family: "Fira Code", monospace, "Noto Sans SC";
 }
 .content pre {
   font-size: 0.85em;
@@ -462,7 +462,7 @@ figure.highlight figcaption:after {
 }
 figure.highlight figcaption span {
   font-weight: 500;
-  font-family: "Source Code Pro", monospace, "Microsoft YaHei";
+  font-family: "Fira Code", monospace, "Noto Sans SC";
 }
 figure.highlight figcaption .fold,
 figure.highlight figcaption a {
