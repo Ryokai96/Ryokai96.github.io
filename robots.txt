@@ -3,5 +3,6 @@ Disallow: /fonts/
 Disallow: /css/
 Disallow: /js/
 Disallow: /webfonts/
+Disallow: /page/
 Sitemap: https://blog.ryokai.xyz/sitemap.xml
 Sitemap: https://blog.ryokai.xyz/baidusitemap.xml
