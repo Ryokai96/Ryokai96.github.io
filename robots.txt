@@ -1,12 +1,7 @@
 ﻿User-agent: *
-Allow: /
-Allow: /archives/
-
-Disallow: /vendors/
-Disallow: /js/
-Disallow: /css/
 Disallow: /fonts/
-Disallow: /vendors/
-Disallow: /fancybox/
-
+Disallow: /css/
+Disallow: /js/
+Disallow: /webfonts/
 Sitemap: https://blog.ryokai.xyz/sitemap.xml
+Sitemap: https://blog.ryokai.xyz/baidusitemap.xml
