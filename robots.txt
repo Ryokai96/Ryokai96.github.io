@@ -4,5 +4,7 @@ Disallow: /css/
 Disallow: /js/
 Disallow: /webfonts/
 Disallow: /page/
+Disallow: /baidu_verify_32lzrlJrEj.html
+Disallow: /baidu_urls.txt
 Sitemap: https://blog.ryokai.xyz/sitemap.xml
 Sitemap: https://blog.ryokai.xyz/baidusitemap.xml
