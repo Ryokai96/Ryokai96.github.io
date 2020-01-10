@@ -9,4 +9,4 @@ Disallow: /fonts/
 Disallow: /vendors/
 Disallow: /fancybox/
 
-Sitemap: http://ryoukai.xyz/sitemap.xml
+Sitemap: https://blog.ryokai.xyz/sitemap.xml
