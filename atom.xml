@@ -32,7 +32,9 @@
     </summary>
     
     
-      <category term="Java" scheme="https://blog.ryokai.xyz/categories/Java/"/>
+      <category term="技术" scheme="https://blog.ryokai.xyz/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+      <category term="Java" scheme="https://blog.ryokai.xyz/categories/%E6%8A%80%E6%9C%AF/Java/"/>
     
     
       <category term="Java" scheme="https://blog.ryokai.xyz/tags/Java/"/>
@@ -55,9 +57,9 @@
     </summary>
     
     
-      <category term="Java" scheme="https://blog.ryokai.xyz/categories/Java/"/>
+      <category term="技术" scheme="https://blog.ryokai.xyz/categories/%E6%8A%80%E6%9C%AF/"/>
     
-      <category term="Dubbo" scheme="https://blog.ryokai.xyz/categories/Java/Dubbo/"/>
+      <category term="Dubbo" scheme="https://blog.ryokai.xyz/categories/%E6%8A%80%E6%9C%AF/Dubbo/"/>
     
     
       <category term="ZooKeeper" scheme="https://blog.ryokai.xyz/tags/ZooKeeper/"/>
@@ -82,7 +84,9 @@
     </summary>
     
     
-      <category term="Java" scheme="https://blog.ryokai.xyz/categories/Java/"/>
+      <category term="技术" scheme="https://blog.ryokai.xyz/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+      <category term="Java" scheme="https://blog.ryokai.xyz/categories/%E6%8A%80%E6%9C%AF/Java/"/>
     
     
       <category term="Java" scheme="https://blog.ryokai.xyz/tags/Java/"/>
@@ -105,7 +109,9 @@
     </summary>
     
     
-      <category term="Java" scheme="https://blog.ryokai.xyz/categories/Java/"/>
+      <category term="技术" scheme="https://blog.ryokai.xyz/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+      <category term="Java" scheme="https://blog.ryokai.xyz/categories/%E6%8A%80%E6%9C%AF/Java/"/>
     
     
       <category term="Java" scheme="https://blog.ryokai.xyz/tags/Java/"/>
@@ -128,7 +134,9 @@
     </summary>
     
     
-      <category term="Java" scheme="https://blog.ryokai.xyz/categories/Java/"/>
+      <category term="技术" scheme="https://blog.ryokai.xyz/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+      <category term="Java" scheme="https://blog.ryokai.xyz/categories/%E6%8A%80%E6%9C%AF/Java/"/>
     
     
       <category term="Java" scheme="https://blog.ryokai.xyz/tags/Java/"/>
@@ -151,7 +159,9 @@
     </summary>
     
     
-      <category term="C语言" scheme="https://blog.ryokai.xyz/categories/C%E8%AF%AD%E8%A8%80/"/>
+      <category term="技术" scheme="https://blog.ryokai.xyz/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+      <category term="C" scheme="https://blog.ryokai.xyz/categories/%E6%8A%80%E6%9C%AF/C/"/>
     
     
       <category term="C" scheme="https://blog.ryokai.xyz/tags/C/"/>

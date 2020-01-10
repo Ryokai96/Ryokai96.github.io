@@ -7,13 +7,13 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>分类: Java - Ryokai 的博客</title>
+<title>分类: C - Ryokai 的博客</title>
 
 
     <meta name="description" content="Serendipity">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Ryokai 的博客">
-<meta property="og:url" content="https://blog.ryokai.xyz/categories/Java/page/2/index.html">
+<meta property="og:url" content="https://blog.ryokai.xyz/categories/%E6%8A%80%E6%9C%AF/C/index.html">
 <meta property="og:site_name" content="Ryokai 的博客">
 <meta property="og:description" content="Serendipity">
 <meta property="og:locale" content="zh_CN">
@@ -135,7 +135,9 @@
         <ul>
             <li><a href="/categories">分类</a></li>
             
-            <li class="is-active"><a href="#" aria-current="page">Java</a></li>
+            <li><a href="/categories/%E6%8A%80%E6%9C%AF/">技术</a></li>
+            
+            <li class="is-active"><a href="#" aria-current="page">C</a></li>
         </ul>
         </nav>
     </div>
@@ -149,14 +151,14 @@
         <div class="level article-meta is-size-7 is-mobile is-overflow-x-auto">
             <div class="level-left">
                 <i class="far fa-calendar-alt has-text-grey"></i>&nbsp;
-                <time class="level-item has-text-grey" datetime="2017-05-07T08:14:10.000Z">
-                    2017-05-07
+                <time class="level-item has-text-grey" datetime="2017-05-06T09:41:39.000Z">
+                    2017-05-06
                 </time>
                 
                 
                 <div class="level-item">
                     <i class="far fa-folder-open has-text-grey"></i>&nbsp;
-                <a class="has-link-grey -link" href="/categories/Java/">Java</a>
+                <a class="has-link-grey -link" href="/categories/%E6%8A%80%E6%9C%AF/">技术</a>&nbsp;/&nbsp;<a class="has-link-grey -link" href="/categories/%E6%8A%80%E6%9C%AF/C/">C</a>
                 </div>
                 
                 
@@ -164,7 +166,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    6 分钟 读完 (大约 910 个字)
+                    3 分钟 读完 (大约 442 个字)
                 </span>
                 
                 
@@ -173,13 +175,30 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/Java%E5%8F%8C%E7%BC%93%E5%86%B2%E6%8A%80%E6%9C%AF%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/">Java双缓冲技术的简单使用</a>
+                <a class="has-link-black-ter" href="/%E5%85%B3%E4%BA%8E%E6%95%B0%E7%BB%84%E5%90%8D%E5%92%8C%E5%AF%B9%E6%95%B0%E7%BB%84%E5%90%8D%E5%8F%96%E5%9C%B0%E5%9D%80/">关于数组名和对数组名取地址</a>
             
         </h1>
         <div class="content">
-            <p>​    动画的刷新频率越快，那么动画看起来就越连贯。</p>
-<p>​    但是使用java的GUI技术的时候，提高重画频率往往会出现闪烁，移动的物体看起来有点一顿一顿的，原因就是重画频率太快，上个paint方法还没有完成就开始执行下个paint方法了。</p>
-<p>​    要解决这个问题，可以使用java的双缓冲技术。
+            <p>以下是基于32位系统的测试：</p>
+<ul>
+<li>程序一：</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a[<span class="number">3</span>] = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;;</span><br><span class="line">	<span class="keyword">int</span> *p1 = (<span class="keyword">int</span> *)(&amp;a+<span class="number">1</span>);</span><br><span class="line">	<span class="keyword">int</span> *p2 = (<span class="keyword">int</span> *)(a+<span class="number">1</span>);</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%x, %x"</span>, p1[<span class="number">-1</span>], *p2);	<span class="comment">//输出为3, 2</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<ul>
+<li>程序二</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> a[<span class="number">3</span>] = &#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>&#125;;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%p\n%p\n"</span>, a, &amp;a);	<span class="comment">//这里a和&amp;a输出一样为0012FF58</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n%d\n"</span>, <span class="keyword">sizeof</span>(a), <span class="keyword">sizeof</span>(&amp;a));	<span class="comment">//sizeof(a)输出为12，sizeof(&amp;a)输出为4</span></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%p\n%p"</span>, &amp;a+<span class="number">1</span>, a+<span class="number">1</span>);	<span class="comment">//注意&amp;优先级高于+，&amp;a+1输出0012FF64，a+1输出为0012FF5C</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>程序二中：a和&amp;a打印出来的都是数组a的首地址。</p>
+<ul>
+<li>数组名a虽然能够单独拿出来代表一个地址，但是和指针还是有区别的，数组名是符号地址常量，在编译时求值并存在编译器的符号表里面，其值就是个内存地址，程序并没有给其分配空间，这与指针不同，sizeof(a)得到的是整个数组的大小12。所以a与a+0有区别，a+0与&amp;a[0]等价。</li>
+<li>关于&amp;a，注意这里的a是一个指针（a加了&amp;后就自动变成了指针，这点很有趣），指向整个数组，其值是数组的首地址，&amp;a就是指针a取地址，所以sizeof(&amp;a)就是一个指针所占内存空间的大小（可以把int a[3]改为char a[3]试试），而&amp;a+1的偏移量是整个数组的大小，所以，在程序一中p1[-1]输出的不是1而是3。</li>
+<li>关于&amp;a是否非法，本来对常量取地址是非法的，但是标准组织没有规定对数组名取地址是非法还是合法，所以因编译器而异，在VS中是合法的。</li>
+</ul>
+
         </div>
 
         
@@ -187,23 +206,6 @@
         
 
         
-        
-        <hr style="height:1px;margin:1rem 0"/>
-        <div class="level is-mobile is-flex">
-            <div class="level-start">
-                
-                <div class="level-item is-size-7 is-uppercase">
-                    <i class="fas fa-tags has-text-grey"></i>&nbsp;
-                    <a class="has-link-grey -link" href="/tags/Java/" rel="tag">Java</a>
-                </div>
-                
-            </div>
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/Java%E5%8F%8C%E7%BC%93%E5%86%B2%E6%8A%80%E6%9C%AF%E7%9A%84%E7%AE%80%E5%8D%95%E4%BD%BF%E7%94%A8/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
         
         
     </div>
@@ -216,25 +218,6 @@
 
 
 
-
-    
-<div class="card card-transparent">
-    <nav class="pagination is-centered" role="navigation" aria-label="pagination">
-        <div class="pagination-previous">
-            <a class="is-flex-grow has-text-black-ter" href="/categories/Java/">上一页</a>
-        </div>
-        <div class="pagination-next is-invisible is-hidden-mobile">
-            <a class="is-flex-grow has-text-black-ter" href="/categories/Java/page/3/">下一页</a>
-        </div>
-        <ul class="pagination-list is-hidden-mobile">
-            
-            <li><a class="pagination-link has-text-black-ter" href="/categories/Java/">1</a></li>
-            
-            <li><a class="pagination-link is-current" href="/categories/Java/page/2/">2</a></li>
-            
-        </ul>
-    </nav>
-</div>
 </div>
                 
 
@@ -287,7 +270,7 @@
                     </p>
                     <a href="/categories">
                         <p class="title has-text-weight-normal">
-                            4
+                            5
                         </p>
                     </a>
                 </div>
@@ -331,14 +314,6 @@
             </h3>
             <ul class="menu-list">
             <li>
-        <a class="level is-marginless" href="/categories/C%E8%AF%AD%E8%A8%80/">
-            <span class="level-start">
-                <span class="level-item">C语言</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a></li><li>
         <a class="level is-marginless" href="/categories/Hexo/">
             <span class="level-start">
                 <span class="level-item">Hexo</span>
@@ -347,20 +322,36 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/Java/">
+        <a class="level is-marginless" href="/categories/%E6%8A%80%E6%9C%AF/">
             <span class="level-start">
-                <span class="level-item">Java</span>
+                <span class="level-item">技术</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">5</span>
+                <span class="level-item tag">6</span>
             </span>
         </a><ul><li>
-        <a class="level is-marginless" href="/categories/Java/Dubbo/">
+        <a class="level is-marginless" href="/categories/%E6%8A%80%E6%9C%AF/C/">
+            <span class="level-start">
+                <span class="level-item">C</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E6%8A%80%E6%9C%AF/Dubbo/">
             <span class="level-start">
                 <span class="level-item">Dubbo</span>
             </span>
             <span class="level-end">
                 <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E6%8A%80%E6%9C%AF/Java/">
+            <span class="level-start">
+                <span class="level-item">Java</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
             </span>
         </a></li></ul></li>
             </ul>
@@ -529,14 +520,6 @@
             </h3>
             <ul class="menu-list">
             <li>
-        <a class="level is-marginless" href="/categories/C%E8%AF%AD%E8%A8%80/">
-            <span class="level-start">
-                <span class="level-item">C语言</span>
-            </span>
-            <span class="level-end">
-                <span class="level-item tag">1</span>
-            </span>
-        </a></li><li>
         <a class="level is-marginless" href="/categories/Hexo/">
             <span class="level-start">
                 <span class="level-item">Hexo</span>
@@ -545,20 +528,36 @@
                 <span class="level-item tag">1</span>
             </span>
         </a></li><li>
-        <a class="level is-marginless" href="/categories/Java/">
+        <a class="level is-marginless" href="/categories/%E6%8A%80%E6%9C%AF/">
             <span class="level-start">
-                <span class="level-item">Java</span>
+                <span class="level-item">技术</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">5</span>
+                <span class="level-item tag">6</span>
             </span>
         </a><ul><li>
-        <a class="level is-marginless" href="/categories/Java/Dubbo/">
+        <a class="level is-marginless" href="/categories/%E6%8A%80%E6%9C%AF/C/">
+            <span class="level-start">
+                <span class="level-item">C</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E6%8A%80%E6%9C%AF/Dubbo/">
             <span class="level-start">
                 <span class="level-item">Dubbo</span>
             </span>
             <span class="level-end">
                 <span class="level-item tag">1</span>
+            </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/%E6%8A%80%E6%9C%AF/Java/">
+            <span class="level-start">
+                <span class="level-item">Java</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">4</span>
             </span>
         </a></li></ul></li>
             </ul>
