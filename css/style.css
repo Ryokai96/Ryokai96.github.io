@@ -1,9 +1,3 @@
-@font-face {
-  font-family: 'Source Han Serif SC';
-  src: url("../fonts/SourceHanSerifSC.woff2") format('woff2'), url("../fonts/SourceHanSerifSC.woff") format('woff');
-  font-weight: normal;
-  font-style: normal;
-}
 /* ---------------------------------
  *       Override CSS Framework
  * --------------------------------- */
@@ -86,7 +80,6 @@ img.thumbnail {
   max-height: 1.75rem;
 }
 .navbar-main {
-  font-family: 'EB Garamond', 'Source Han Serif SC', 'SimSun Medium', 'Songti SC', 'WenQuanYi Bitmap Song-medium', serif;
   box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 .navbar-main .navbar-menu,
@@ -132,23 +125,17 @@ img.thumbnail {
   }
 }
 .footer {
-  font-family: 'EB Garamond', 'Source Han Serif SC', 'SimSun Medium', 'Songti SC', 'WenQuanYi Bitmap Song-medium', serif;
+  font-family: 'EB Garamond', serif;
   background: #fff;
 }
 .footer .field .button {
   background: transparent;
-}
-.widget .heading {
-  font-family: 'EB Garamond', 'Source Han Serif SC', 'SimSun Medium', 'Songti SC', 'WenQuanYi Bitmap Song-medium', serif;
 }
 .widget .media {
   border: none;
 }
 .widget .media + .media {
   margin-top: 0;
-}
-.widget .menu-label {
-  font-family: 'EB Garamond', 'Source Han Serif SC', 'SimSun Medium', 'Songti SC', 'WenQuanYi Bitmap Song-medium', serif;
 }
 .widget .menu-list li ul {
   margin-right: 0;
@@ -169,11 +156,6 @@ img.thumbnail {
 .pagination .pagination-previous,
 .pagination .pagination-next {
   box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-  font-family: 'EB Garamond', 'Source Han Serif SC', 'SimSun Medium', 'Songti SC', 'WenQuanYi Bitmap Song-medium', serif;
-}
-.pagination .pagination-previous,
-.pagination .pagination-next {
-  font-family: 'EB Garamond', 'Source Han Serif SC', 'SimSun Medium', 'Songti SC', 'WenQuanYi Bitmap Song-medium', serif;
 }
 .post-navigation {
   justify-content: space-around;
